@@ -51,7 +51,5 @@ contract PRIMO is ERC20("Primogems","PMG"){
     function inventoryItem3_extraLife(address playerAddress) public enoughToken{
           mapPlayer[playerAddress].playerTotalToken-=20;
     }
-
-
 }
 
