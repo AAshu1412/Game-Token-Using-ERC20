@@ -35,15 +35,22 @@ contract PRIMO is ERC20("Primogems","PMG"){
         return (mapPlayer[msg.sender].playerMissonToken,mapPlayer[msg.sender].playerMissonToken/70);
     }
 
-    function inventory(address player) public {
-          
+    modifier enoughToken{
+        require(mapPlayer[msg.sender].playerTotalToken>30,"Not Enough Balance");
+        _;
     }
 
+    function inventoryItem1_superSpeed(address playerAddress) public enoughToken {
+          mapPlayer[playerAddress].playerTotalToken-=30;
+    }
 
+    function inventoryItem2_superJump(address playerAddress) public enoughToken{
+          mapPlayer[playerAddress].playerTotalToken-=20;
+    }
 
-
-
-    
+    function inventoryItem3_extraLife(address playerAddress) public enoughToken{
+          mapPlayer[playerAddress].playerTotalToken-=20;
+    }
 
 
 }
