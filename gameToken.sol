@@ -18,11 +18,11 @@ contract PRIMO is ERC20("Primogems","PMG"){
         require(mapPlayer[msg.sender].playerLoginDay!=(block.timestamp/86400),"You have collected today daily reward.");
         mapPlayer[msg.sender].playerDailyToken+=20;
         mapPlayer[msg.sender].playerTotalToken+=mapPlayer[msg.sender].playerDailyToken;
-        mapPlayer[msg.sender].playerLoginDay+=block.timestamp;
+        mapPlayer[msg.sender].playerLoginDay=block.timestamp/86400;
     }
 
-    function checkDailyToken(address playerAddress) public view returns(uint){
-        return mapPlayer[playerAddress].playerDailyToken;
+    function checkDailyToken() public view returns(uint){
+        return mapPlayer[msg.sender].playerDailyToken;
     }
 
     function completeMissionReward(bool missionStatus) public{
@@ -35,21 +35,27 @@ contract PRIMO is ERC20("Primogems","PMG"){
         return (mapPlayer[msg.sender].playerMissonToken,mapPlayer[msg.sender].playerMissonToken/70);
     }
 
+    function checkTotalToken() public view returns(uint){
+        return mapPlayer[msg.sender].playerTotalToken;
+    }
+
     modifier enoughToken{
         require(mapPlayer[msg.sender].playerTotalToken>30,"Not Enough Balance");
         _;
     }
 
-    function inventoryItem1_superSpeed(address playerAddress) public enoughToken {
-          mapPlayer[playerAddress].playerTotalToken-=30;
+    function inventoryItem1_superSpeed() public enoughToken {
+          mapPlayer[msg.sender].playerTotalToken-=30;
     }
 
-    function inventoryItem2_superJump(address playerAddress) public enoughToken{
-          mapPlayer[playerAddress].playerTotalToken-=20;
+    function inventoryItem2_superJump() public enoughToken{
+          mapPlayer[msg.sender].playerTotalToken-=20;
     }
 
-    function inventoryItem3_extraLife(address playerAddress) public enoughToken{
-          mapPlayer[playerAddress].playerTotalToken-=20;
+    function inventoryItem3_extraLife() public enoughToken{
+          mapPlayer[msg.sender].playerTotalToken-=20;
     }
+
+
 }
 
